@@ -1,4 +1,5 @@
 import pygame
+from src.classes import *
 
 width = 1600
 height = 900
@@ -22,13 +23,22 @@ chat.fill((50,150,200))
 chat_pos = (map_pos[0] + map.get_width(),0)
 
 
+chat_buttons_group = pygame.sprite.Group()
 
-def redrawWindow():
+chat = pygame.image.load("img/chat/chat.png")
+dice4 = MenuButtons("img/chat/dice_d4_v4.png", [chat_pos[0]+55, 700])
+chat_buttons_group.add(dice4)
+
+def redraw_window():
     window.fill((255,255,255))
     window.blit(main_panel, main_panel_pos)
     window.blit(temp_bookmarks, bookmarks_pos)
     window.blit(map, map_pos)
     window.blit(chat, chat_pos)
+
+    chat_buttons_group.update()
+    chat_buttons_group.draw(window)
+
     pygame.display.update()
 
 
@@ -38,6 +48,6 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
-            redrawWindow()
+            redraw_window()
 
 main()
