@@ -1,16 +1,27 @@
 import pygame
 
-class MenuButtons(pygame.sprite.Sprite):
+class DiceButtons(pygame.sprite.Sprite):
+    def __init__(self, pic_path, position, clicked_pic_path):
+        super().__init__()
+        self.image = pygame.image.load(pic_path)
+        self.x, self.y = position
+        self.rect = self.image.get_rect()
+        self.rect.center = position
+        self.path = pic_path
+        self.path_clicked = clicked_pic_path
+
+    def on_click(self):
+        self.image = pygame.image.load(self.path_clicked)
+    def on_release(self):
+        self.image = pygame.image.load(self.path)
+
+class ChatInput(pygame.sprite.Sprite):
     def __init__(self, picture_path, position):
         super().__init__()
         self.image = pygame.image.load(picture_path)
         self.x, self.y = position
         self.rect = self.image.get_rect()
         self.rect.center = position
-
-class ChatInput(MenuButtons):
-    def __init__(self):
-        super().__init__()
         message = ''
 
     def InputMessage(self):
