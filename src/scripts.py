@@ -7,7 +7,8 @@ def throw_dice(list, throws, dice_size):
     return list
 
 def check_command(command):
-    ops = {"+": operator.add,}
+    ops = {"+": operator.add,
+           "*": operator.mul}
     sum = 0
     string_result = ''
     result = []
@@ -31,6 +32,7 @@ def check_command(command):
             string_result += str(j) + '+'
             sum += j
     string_result = string_result[:-1]
+    return string_result + " Razem: " + str(sum)
 
 """
 DODAĆ OBSŁUGĘ MNOZENIA RZUTÓW
@@ -40,5 +42,5 @@ DODAĆ KOMENTARZE
 
 
 
-txt = "1d8+2k6+k12+k100"
-check_command(txt)
+txt = input()
+print(check_command(txt))
