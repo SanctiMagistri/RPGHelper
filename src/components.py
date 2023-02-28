@@ -26,8 +26,23 @@ chat = pygame.image.load("img/chat/chat_2.png")
 # #TEMPORARY
 # chat_buttons_group.add(chat_input)
 
-dice4 = DiceButtons("img/chat/dice4.png", [chat_pos[0]+55, 605], "img/chat/dice4clicked.png")
+dice4 = DiceButtons("img/chat/dice4.png", [chat_pos[0]+60, 605], "img/chat/dice4clicked.png")
 chat_buttons_group.add(dice4)
 
-dice6 = DiceButtons("img/chat/dice6.png", [chat_pos[0]+110, 605], "img/chat/dice6clicked.png")
+dice6 = DiceButtons("img/chat/dice6.png", [chat_pos[0]+125, 605], "img/chat/dice6clicked.png")
 chat_buttons_group.add(dice6)
+
+dice8 = DiceButtons("img/chat/dice8.png", [chat_pos[0]+180, 605], "img/chat/dice8clicked.png")
+chat_buttons_group.add(dice8)
+
+dice10 = DiceButtons("img/chat/dice10.png", [chat_pos[0]+235, 605], "img/chat/dice10clicked.png")
+chat_buttons_group.add(dice10)
+
+dice12 = DiceButtons("img/chat/dice12.png", [chat_pos[0]+90, 670], "img/chat/dice12clicked.png")
+chat_buttons_group.add(dice12)
+
+dice20 = DiceButtons("img/chat/dice20.png", [chat_pos[0]+150, 670], "img/chat/dice20clicked.png")
+chat_buttons_group.add(dice20)
+
+dice100 = DiceButtons("img/chat/dice100.png", [chat_pos[0]+200, 670], "img/chat/dice100clicked.png")
+chat_buttons_group.add(dice100)

@@ -10,10 +10,12 @@ class DiceButtons(pygame.sprite.Sprite):
         self.path = pic_path
         self.path_clicked = clicked_pic_path
 
-    def on_click(self):
-        self.image = pygame.image.load(self.path_clicked)
-    def on_release(self):
-        self.image = pygame.image.load(self.path)
+    def update(self, is_clicked):
+        if is_clicked == True:
+            self.image = pygame.image.load(self.path_clicked)
+        else:
+            self.image = pygame.image.load(self.path)
+
 
 class ChatInput(pygame.sprite.Sprite):
     def __init__(self, picture_path, position):
