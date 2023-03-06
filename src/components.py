@@ -26,6 +26,8 @@ chat = pygame.image.load("img/chat/chat_2.png")
 # #TEMPORARY
 # dice_group.add(chat_input)
 
+
+# DICE BUTTONS
 dice4 = DiceButtons("img/chat/dice4.png", [chat_pos[0]+75, 610], "img/chat/dice4clicked.png", 4)
 dice_group.add(dice4)
 
@@ -46,3 +48,9 @@ dice_group.add(dice20)
 
 dice100 = DiceButtons("img/chat/dice100.png", [chat_pos[0]+150, 770], "img/chat/dice100clicked.png", 100)
 dice_group.add(dice100)
+
+
+# INPUT BOXES
+commandbox = InputBox([chat_pos[0]+25,825], [250,50])
+
+input_boxes = [commandbox]

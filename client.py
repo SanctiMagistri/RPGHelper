@@ -1,10 +1,14 @@
 import pygame
 from src.components import *
 
+pygame.init()
+pygame.font.init()
+
 width = 1600
 height = 900
 window = pygame.display.set_mode((width,height))
 pygame.display.set_caption("RPGHelper")
+FONT = pygame.font.Font(None, 32)
 
 
 
@@ -16,11 +20,15 @@ def redraw_window():
     window.blit(chat, chat_pos)
 
     dice_group.draw(window)
+    for box in input_boxes:
+        box.draw(window)
 
     pygame.display.update()
 
 
+
 def main():
+    clock = pygame.time.Clock()
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -39,6 +47,12 @@ def main():
                     if dice.rect.collidepoint(mouse_cords):
                         dice.update(is_clicked=False)
 
-            redraw_window()
+            for box in input_boxes:
+                box.handle_event(event)
+
+
+
+        redraw_window()
+        clock.tick(60)
 
 main()
