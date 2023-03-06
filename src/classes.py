@@ -1,7 +1,8 @@
 import pygame
+from src.scripts import throw_dice
 
 class DiceButtons(pygame.sprite.Sprite):
-    def __init__(self, pic_path, position, clicked_pic_path):
+    def __init__(self, pic_path, position, clicked_pic_path, dice):
         super().__init__()
         self.image = pygame.image.load(pic_path)
         self.x, self.y = position
@@ -9,10 +10,13 @@ class DiceButtons(pygame.sprite.Sprite):
         self.rect.center = position
         self.path = pic_path
         self.path_clicked = clicked_pic_path
+        self.dice = dice
 
     def update(self, is_clicked):
         if is_clicked == True:
             self.image = pygame.image.load(self.path_clicked)
+            throw = throw_dice([], 1, self.dice)
+            print(throw)
         else:
             self.image = pygame.image.load(self.path)
 

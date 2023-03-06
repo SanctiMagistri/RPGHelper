@@ -15,7 +15,7 @@ def redraw_window():
     window.blit(map, map_pos)
     window.blit(chat, chat_pos)
 
-    chat_buttons_group.draw(window)
+    dice_group.draw(window)
 
     pygame.display.update()
 
@@ -29,13 +29,13 @@ def main():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_cords = pygame.mouse.get_pos()
-                for dice in chat_buttons_group:
+                for dice in dice_group:
                     if dice.rect.collidepoint(mouse_cords):
                         dice.update(is_clicked=True)
 
             if event.type == pygame.MOUSEBUTTONUP:
                 mouse_cords = pygame.mouse.get_pos()
-                for dice in chat_buttons_group:
+                for dice in dice_group:
                     if dice.rect.collidepoint(mouse_cords):
                         dice.update(is_clicked=False)
 
