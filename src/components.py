@@ -1,6 +1,11 @@
-import pygame
 from .classes import *
+from .scripts import check_command, pass_func
 
+# ===== FONTS =====
+DICE_INPUT_FONT = 'fnt/newt-serif.serifbold.otf'
+CHAT_INPUT_FONT = 'fnt/fff-forward.regular.ttf'
+
+# ===== BACKGROUNDS =====
 main_panel = pygame.Surface((350,900))
 main_panel.fill((255,255,0))
 main_panel_pos = (0,0)
@@ -13,21 +18,18 @@ map = pygame.Surface((900,900))
 map.fill((100,100,100))
 map_pos = (bookmarks_pos[0] + temp_bookmarks.get_width(),0)
 
-chat = pygame.Surface((300,900))
-chat.fill((50,150,200))
-chat_pos = (map_pos[0] + map.get_width(),0)
+chat_background = pygame.Surface((300,900))
+chat_background.fill('navajowhite2')
 
+chat = pygame.Surface((300,900))
+chat_pos = (map_pos[0] + map.get_width(),0)
+chat.fill('white')
+chat = pygame.image.load("img/chat/chat2.png")
 
 dice_group = pygame.sprite.Group()
 
-chat = pygame.image.load("img/chat/chat_2.png")
 
-# chat_input = ChatInput("img/chat/chat_input_2.png", [chat_pos[0]+150, 550])
-# #TEMPORARY
-# dice_group.add(chat_input)
-
-
-# DICE BUTTONS
+# ===== DICE BUTTONS =====
 dice4 = DiceButtons("img/chat/dice4.png", [chat_pos[0]+75, 610], "img/chat/dice4clicked.png", 4)
 dice_group.add(dice4)
 
@@ -50,7 +52,7 @@ dice100 = DiceButtons("img/chat/dice100.png", [chat_pos[0]+150, 770], "img/chat/
 dice_group.add(dice100)
 
 
-# INPUT BOXES
-commandbox = InputBox([chat_pos[0]+25,825], [250,50])
-
-input_boxes = [commandbox]
+# ===== INPUT BOXES =====
+commandbox = InputBox([chat_pos[0]+23,837], [254,45], check_command, DICE_INPUT_FONT, 30)
+chat_box = InputBox([chat_pos[0]+23, 526], [255,31], pass_func, CHAT_INPUT_FONT, 12)
+input_boxes = [commandbox, chat_box]

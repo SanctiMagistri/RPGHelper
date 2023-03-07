@@ -1,4 +1,3 @@
-import pygame
 from src.components import *
 
 pygame.init()
@@ -8,24 +7,24 @@ width = 1600
 height = 900
 window = pygame.display.set_mode((width,height))
 pygame.display.set_caption("RPGHelper")
-FONT = pygame.font.Font(None, 32)
 
-
+# ===== FONTS =====
+CHATBOX_FONT = pygame.font.Font('fnt/newt-serif.serifbold.otf', 30)
 
 def redraw_window():
     window.fill((255,255,255))
     window.blit(main_panel, main_panel_pos)
     window.blit(temp_bookmarks, bookmarks_pos)
     window.blit(map, map_pos)
+    window.blit(chat_background, chat_pos)
     window.blit(chat, chat_pos)
 
     dice_group.draw(window)
+
     for box in input_boxes:
         box.draw(window)
 
     pygame.display.update()
-
-
 
 def main():
     clock = pygame.time.Clock()
@@ -49,8 +48,6 @@ def main():
 
             for box in input_boxes:
                 box.handle_event(event)
-
-
 
         redraw_window()
         clock.tick(60)

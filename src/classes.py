@@ -3,9 +3,9 @@ from src.scripts import throw_dice
 
 pygame.font.init()
 
-FONT = pygame.font.Font(None, 32)
-COLOR_INACTIVE = pygame.Color('bisque')
-COLOR_ACTIVE = pygame.Color('bisque3')
+CHAT_COLOR_INACTIVE = pygame.Color('saddlebrown')
+CHAT_COLOR_ACTIVE = pygame.Color('green4')
+
 class DiceButtons(pygame.sprite.Sprite):
     def __init__(self, pic_path, position, clicked_pic_path, dice):
         super().__init__()
@@ -27,12 +27,15 @@ class DiceButtons(pygame.sprite.Sprite):
 
 
 class InputBox:
-    def __init__(self, position, size, text = ''):
+    def __init__(self, position, size, txt_func, font, font_size, text = ''):
         self.rect = pygame.Rect(position, size)
-        self.color = COLOR_INACTIVE
+        self.color = CHAT_COLOR_INACTIVE
         self.text = text
-        self.text_surface = FONT.render(text, True, self.color)
+        self.font = pygame.font.Font(font, font_size)
+        self.text_surface = self.font.render(text, True, self.color)
         self.active = False
+        self.txt_func = txt_func
+
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -40,18 +43,17 @@ class InputBox:
                 self.active = not self.active
             else:
                 self.active = False
-            self.color = COLOR_ACTIVE if self.active else COLOR_INACTIVE
+            self.color = CHAT_COLOR_ACTIVE if self.active else CHAT_COLOR_INACTIVE
         if event.type == pygame.KEYDOWN:
             if self.active:
-                if event.key == pygame.K_RETURN:
-                    print(self.text) # MAKE HERE HANDLE COMMAND
-
+                if event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER:
+                    print(self.txt_func(self.text))
                     self.text = ''
                 elif event.key == pygame.K_BACKSPACE:
                     self.text = self.text[:-1]
                 else:
                     self.text += event.unicode
-                self.text_surface = FONT.render(self.text, True, self.color)
+                self.text_surface = self.font.render(self.text, True, 'black')
 
     def draw(self, screen):
         screen.blit(self.text_surface, (self.rect.x+5, self.rect.y+5))
