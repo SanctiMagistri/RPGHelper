@@ -1,3 +1,5 @@
+import pygame
+
 from src.components import *
 
 pygame.init()
@@ -26,8 +28,40 @@ def redraw_window():
 
     pygame.display.update()
 
+def login():
+    logged_in = False
+    log_state = False
+    while logged_in is False:
+        window.blit(logging_screen, logging_screen_pos)
+
+        for logbox in login_panel_boxes:
+            logbox.draw(logging_screen)
+
+        for logbuttons in login_panel_buttons:
+            logbuttons.draw(logging_screen)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+
+            for logbox in input_boxes:
+                logbox.handle_event(event)
+
+            for logbuttons in login_panel_buttons:
+                log_state_temp = logbuttons.handle_event(event, ("login","passwd"))
+                if log_state_temp is True:
+                    log_state = log_state_temp
+
+            if event.type == pygame.MOUSEBUTTONUP:
+                logged_in = log_state
+
+        pygame.display.update()
+
 def main():
     clock = pygame.time.Clock()
+    login()
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

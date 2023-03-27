@@ -66,3 +66,11 @@ def check_command(command):
 
 def pass_func(message):
     return message
+
+def login(login_data):
+    print("zalogowano: " + str(login_data))
+    return True
+
+def register(register_data):
+    print("zarejestrowano: " + str(register_data))
+    return True
