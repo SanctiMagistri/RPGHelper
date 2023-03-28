@@ -34,6 +34,18 @@ chat = pygame.image.load("img/chat/chat2.png")
 
 dice_group = pygame.sprite.Group()
 
+# ===== COLORS =====
+LOGIN_BUTTON_COLOR = pygame.Color('chartreuse3')
+REGISTER_BUTTON_COLOR = pygame.Color('darkgoldenrod3')
+
+CHAT_COLOR_INACTIVE = pygame.Color('saddlebrown')
+CHAT_COLOR_ACTIVE = pygame.Color('green4')
+CHAT_COLOR_SYSTEM = pygame.Color('crimson')
+CHAT_COLOR_MESSAGE = pygame.Color('black')
+
+LOGIN_INPUT_INACTIVE_COLOR = pygame.Color('cornsilk3')
+LOGIN_INPUT_ACTIVE_COLOR = pygame.Color('cornsilk')
+
 
 # ===== DICE BUTTONS =====
 dice4 = DiceButtons("img/chat/dice4.png", [chat_pos[0]+75, 610], "img/chat/dice4clicked.png", 4)
@@ -59,16 +71,16 @@ dice_group.add(dice100)
 
 
 # ===== INPUT BOXES =====
-login_box = LoginBox([600, 300], [300, 50] , pass_func, DICE_INPUT_FONT, 30)
-password_box = LoginBox([600, 400], [300, 50] , pass_func, DICE_INPUT_FONT, 30)
+login_box = LoginBox([600, 300], [300, 50] , LOGIN_INPUT_ACTIVE_COLOR, LOGIN_INPUT_INACTIVE_COLOR, pass_func, DICE_INPUT_FONT, 30)
+password_box = LoginBox([600, 400], [300, 50] , LOGIN_INPUT_ACTIVE_COLOR, LOGIN_INPUT_INACTIVE_COLOR, pass_func, DICE_INPUT_FONT, 30)
 login_panel_boxes = [login_box, password_box]
 
-commandbox = InputBox([chat_pos[0]+23,837], [254,45], check_command, DICE_INPUT_FONT, 30)
-chat_box = InputBox([chat_pos[0]+23, 526], [255,31], pass_func, CHAT_INPUT_FONT, 12)
-input_boxes = [commandbox, chat_box]
+command_box = InputBox([chat_pos[0] + 23, 837], [254, 45], CHAT_COLOR_ACTIVE, CHAT_COLOR_INACTIVE, check_command, DICE_INPUT_FONT, 30)
+chat_box = InputBox([chat_pos[0]+23, 526], [255,31], CHAT_COLOR_ACTIVE, CHAT_COLOR_INACTIVE, pass_func, CHAT_INPUT_FONT, 12)
+input_boxes = [command_box, chat_box]
 
 # ===== BUTTONS =====
-LoginButton = LoginPanelButton("Zaloguj", (600, 500), (125, 50), DICE_INPUT_FONT, 20, 'chartreuse3', login)
-RegisterButton = LoginPanelButton("Zarejestruj", (775,500),(125,50), DICE_INPUT_FONT, 20, 'darkgoldenrod3', register)
+LoginButton = LoginPanelButton("Zaloguj", (600, 500), (125, 50), DICE_INPUT_FONT, 25, LOGIN_BUTTON_COLOR, login)
+RegisterButton = LoginPanelButton("Zarejestruj", (775,500),(125,50), DICE_INPUT_FONT, 21, REGISTER_BUTTON_COLOR, register)
 login_panel_buttons = [LoginButton, RegisterButton]
 

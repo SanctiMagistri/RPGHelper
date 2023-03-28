@@ -3,10 +3,7 @@ from src.scripts import throw_dice
 
 pygame.font.init()
 
-CHAT_COLOR_INACTIVE = pygame.Color('saddlebrown')
-CHAT_COLOR_ACTIVE = pygame.Color('green4')
-CHAT_COLOR_SYSTEM = pygame.Color('crimson')
-CHAT_COLOR_MESSAGE = pygame.Color('black')
+
 
 
 class Button:
@@ -14,7 +11,7 @@ class Button:
         self.position = pos
         self.size = size
         self.font = pygame.font.Font(font, font_size)
-        self.text = self.font.render(text,1, 'black')
+        self.text = self.font.render(text, True, 'black')
         self.background = bg
         self.func = func
         self.surface = pygame.Surface(self.size)
@@ -33,7 +30,7 @@ class LoginPanelButton(Button):
         super(LoginPanelButton, self).__init__( text, pos, size, font, font_size, bg, func)
     def handle_event(self, event, data):
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if self.rect.collidepoint(pygame.mouse.get_pos()):
+            if self.rect.collidepoint(event.pos):
                 if self.func(data):
                     return True
                 else: return False
@@ -60,49 +57,15 @@ class DiceButtons(pygame.sprite.Sprite):
         else:
             self.image = pygame.image.load(self.path)
 
-class ChatBox:
-    def __init__(self, position, size, font, font_size, text = ''):
-        self.rect = pygame.Rect(position, size)
-        self.text = text
-        self.font = pygame.font.Font(font, font_size)
-        self.text_surface = self.font.render(text, True, CHAT_COLOR_MESSAGE)
 
 
-class LoginBox:
-    def __init__(self, position, size, txt_func, font, font_size, text = ''):
-        self.rect = pygame.Rect(position, size)
-        self.color = 'cornsilk3'
-        self.text = text
-        self.font = pygame.font.Font(font, font_size)
-        self.text_surface = self.font.render(text, True, self.color)
-        self.active = False
-        self.txt_func = txt_func
-    def handle_event(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if self.rect.collidepoint(event.pos):
-                self.active = not self.active
-            else:
-                self.active = False
-            self.color = 'cornsilk' if self.active else 'cornsilk3'
-        if event.type == pygame.KEYDOWN:
-            if self.active:
-                if event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER:
-                    print(self.txt_func(self.text)) #===============PRINT======================
-                    self.text = ''
-                elif event.key == pygame.K_BACKSPACE:
-                    self.text = self.text[:-1]
-                else:
-                    self.text += event.unicode
-                self.text_surface = self.font.render(self.text, True, 'black')
-
-    def draw(self, screen):
-        screen.blit(self.text_surface, (self.rect.x+5, self.rect.y+5))
-        pygame.draw.rect(screen, self.color, self.rect)
 
 class InputBox:
-    def __init__(self, position, size, txt_func, font, font_size, text = ''):
+    def __init__(self, position, size, color_active, color_inactive, txt_func, font, font_size, text = ''):
         self.rect = pygame.Rect(position, size)
-        self.color = CHAT_COLOR_INACTIVE
+        self.color_inactive = color_inactive
+        self.color_active = color_active
+        self.color = self.color_inactive
         self.text = text
         self.font = pygame.font.Font(font, font_size)
         self.text_surface = self.font.render(text, True, self.color)
@@ -111,11 +74,12 @@ class InputBox:
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if self.rect.collidepoint(event.pos):
+            mouse_pos = pygame.mouse.get_pos()
+            if self.rect.collidepoint(mouse_pos):
                 self.active = not self.active
             else:
                 self.active = False
-            self.color = CHAT_COLOR_ACTIVE if self.active else CHAT_COLOR_INACTIVE
+            self.color = self.color_active if self.active else self.color_inactive
         if event.type == pygame.KEYDOWN:
             if self.active:
                 if event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER:
@@ -130,3 +94,11 @@ class InputBox:
     def draw(self, screen):
         screen.blit(self.text_surface, (self.rect.x+5, self.rect.y+5))
         pygame.draw.rect(screen, self.color, self.rect, 2)
+
+class LoginBox(InputBox):
+    def __init__(self, position, size, color_active, color_inactive, txt_func, font, font_size, text = ''):
+        super(LoginBox, self).__init__(position, size, color_active, color_inactive, txt_func, font, font_size, text = '')
+
+    def draw(self, screen):
+        screen.blit(self.text_surface, (self.rect.x+5, self.rect.y+5))
+        pygame.draw.rect(screen, self.color, self.rect)
