@@ -71,16 +71,18 @@ dice_group.add(dice100)
 
 
 # ===== INPUT BOXES =====
-login_box = LoginBox([600, 300], [300, 50] , LOGIN_INPUT_ACTIVE_COLOR, LOGIN_INPUT_INACTIVE_COLOR, pass_func, DICE_INPUT_FONT, 30)
-password_box = LoginBox([600, 400], [300, 50] , LOGIN_INPUT_ACTIVE_COLOR, LOGIN_INPUT_INACTIVE_COLOR, pass_func, DICE_INPUT_FONT, 30)
+login_box = LoginBox((600, 300), (300, 50) , LOGIN_INPUT_ACTIVE_COLOR, LOGIN_INPUT_INACTIVE_COLOR, pass_func, DICE_INPUT_FONT, 30)
+password_box = PasswordBox((600, 400), (300, 50) , LOGIN_INPUT_ACTIVE_COLOR, LOGIN_INPUT_INACTIVE_COLOR, pass_func, DICE_INPUT_FONT, 30)
 login_panel_boxes = [login_box, password_box]
 
-command_box = InputBox([chat_pos[0] + 23, 837], [254, 45], CHAT_COLOR_ACTIVE, CHAT_COLOR_INACTIVE, check_command, DICE_INPUT_FONT, 30)
-chat_box = InputBox([chat_pos[0]+23, 526], [255,31], CHAT_COLOR_ACTIVE, CHAT_COLOR_INACTIVE, pass_func, CHAT_INPUT_FONT, 12)
+command_box = InputBox((chat_pos[0]+23, 837), (254, 45), CHAT_COLOR_ACTIVE, CHAT_COLOR_INACTIVE, check_command, DICE_INPUT_FONT, 30)
+chat_box = InputBox((chat_pos[0]+23, 526), (255,31), CHAT_COLOR_ACTIVE, CHAT_COLOR_INACTIVE, pass_func, CHAT_INPUT_FONT, 12)
 input_boxes = [command_box, chat_box]
 
 # ===== BUTTONS =====
 LoginButton = LoginPanelButton("Zaloguj", (600, 500), (125, 50), DICE_INPUT_FONT, 25, LOGIN_BUTTON_COLOR, login)
 RegisterButton = LoginPanelButton("Zarejestruj", (775,500),(125,50), DICE_INPUT_FONT, 21, REGISTER_BUTTON_COLOR, register)
 login_panel_buttons = [LoginButton, RegisterButton]
+
+
 

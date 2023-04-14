@@ -72,5 +72,7 @@ def login(login_data):
     return True
 
 def register(register_data):
+    if register_data[0] or register_data[1] == '':
+        return False
     print("zarejestrowano: " + str(register_data))
     return True

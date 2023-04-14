@@ -29,13 +29,13 @@ class LoginPanelButton(Button):
     def __init__(self, text, pos, size, font, font_size, bg, func):
         super(LoginPanelButton, self).__init__( text, pos, size, font, font_size, bg, func)
     def handle_event(self, event, data):
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if self.rect.collidepoint(event.pos):
-                if self.func(data):
-                    return True
-                else: return False
+
+        if self.rect.collidepoint(event.pos):
+            if self.func(data):
+                return True
             else: return False
         else: return False
+
 
 
 class DiceButtons(pygame.sprite.Sprite):
@@ -74,8 +74,7 @@ class InputBox:
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
-            mouse_pos = pygame.mouse.get_pos()
-            if self.rect.collidepoint(mouse_pos):
+            if self.rect.collidepoint(event.pos):
                 self.active = not self.active
             else:
                 self.active = False
@@ -96,9 +95,22 @@ class InputBox:
         pygame.draw.rect(screen, self.color, self.rect, 2)
 
 class LoginBox(InputBox):
-    def __init__(self, position, size, color_active, color_inactive, txt_func, font, font_size, text = ''):
+    def __init__(self, position, size, color_active, color_inactive, txt_func, font, font_size):
         super(LoginBox, self).__init__(position, size, color_active, color_inactive, txt_func, font, font_size, text = '')
 
     def draw(self, screen):
-        screen.blit(self.text_surface, (self.rect.x+5, self.rect.y+5))
         pygame.draw.rect(screen, self.color, self.rect)
+        screen.blit(self.text_surface, (self.rect.x+5, self.rect.y+5))
+
+class PasswordBox(LoginBox):
+    def __init__(self, position, size, color_active, color_inactive, txt_func, font, font_size):
+        super(LoginBox, self).__init__(position, size, color_active, color_inactive, txt_func, font, font_size, text = '')
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.color, self.rect)
+        tmp_txt = ''
+        for i in range(0, len(self.text)):
+            tmp_txt += '*'
+        self.text_surface = self.font.render(tmp_txt, True, 'black')
+        screen.blit(self.text_surface, (self.rect.x + 5, self.rect.y + 5))
+
